@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background-color: #a9c8df;
+
+            opacity: 1.2;
+
+            background-image: radial-gradient(#2270ac 1.35px, #a9c8df 1.35px);
+
+            background-size: 27px 27px;
+
+            margin: 0;
+
+            padding: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+
+            color: #FFF;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .main {
+
+            background-color: rgba(0, 0, 0, 0.8);
+
+            padding: 20px;
+
+            border-radius: 5px;
+
+            width: 80%;
+
+            max-width: 1200px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .titulo {
+
+            font-size: 2rem;
+
+            margin: 0;
+
+        }
+
+
+
+        nav {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin: 20px 0;
+
+        }
+
+
+
+        nav a {
+
+            background-color: #3498db;
+
+            padding: 10px 20px;
+
+            margin: 0 10px;
+
+            text-decoration: none;
+
+            color: #FFF;
+
+            border-radius: 5px;
+
+            transition: background-color 0.3s;
+
+        }
+
+
+
+        nav a:hover {
+
+            background-color: #5cb3ff;
+
+        }
+
+
+
+        nav a.active {
+
+            background-color: #5cb3ff;
+
+        }
+
+
+
+        .tabcontent {
+
+            display: none;
+
+        }
+
+
+
+        .venta,
+
+        .administracion {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+            gap: 20px;
+
+        }
+
+
+
+        input,
+
+        textarea,
+
+        button {
+
+            width: 100%;
+
+            font-size: 1rem;
+
+        }
+
+
+
+        input,
+
+        textarea {
+
+            padding: 10px;
+
+            border-radius: 5px;
+
+            border: none;
+
+            background-color: rgba(255, 255, 255, 0.8);
+
+            color: #000;
+
+        }
+
+
+
+        button {
+
+            padding: 8px;
+
+            background-color: #3498db;
+
+            color: #FFF;
+
+            border: none;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s;
+
+        }
+
+
+
+        button:hover {
+
+            background-color: #5cb3ff;
+
+        }
+
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+
+        table,
+
+        th,
+
+        td {
+
+            border: 1px solid #FFF;
+
+            padding: 10px;
+
+            text-align: left;
+
+        }
+
+
+
+        th {
+
+            background-color: #3498db;
+
+        }
+
+
+
+        td {
+
+            background-color: rgba(255, 255, 255, 0.2);
+
+        }
+
+
+
+        .popup {
+
+            position: fixed;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            background-color: white;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+            padding: 20px;
+
+            width: 80%;
+
+            max-width: 600px;
+
+            z-index: 1000;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: all 0.3s ease-in-out;
+
+        }
+
+
+
+        .popup.visible {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+
+        #descuentoEnVenta {
+    padding: 8px;
+    background-color: #3498db;
+    color: #FFF;
+    border: none;
+}
+        .close-popup {
+
+            position: absolute;
+
+            top: 5px;
+
+            right: 10px;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #777;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* Estilos para los pop-ups */
+
+        .pop-up {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 100;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            background-color: white;
+
+            border-radius: 5px;
+
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+            padding: 20px;
+
+            width: 80%;
+
+            max-width: 400px;
+
+            animation: fadeIn 0.3s;
+
+        }
+
+
+
+        .pop-up h2 {
+
+            margin-top: 0;
+
+        }
+
+
+
+        .close {
+
+            position: absolute;
+
+            right: 10px;
+
+            top: 10px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* Animaciones */
+
+        @keyframes fadeIn {
+
+            0% {
+
+                opacity: 0;
+
+                transform: translate(-50%, -60%);
+
+            }
+
+
+
+            100% {
+
+                opacity: 1;
+
+                transform: translate(-50%, -50%);
+
+            }
+
+        }
+
+    </style>
+
+    <title>Aplicación de Punto de Venta</title>
+
+    <script>
+
+        function openTab(evt, tabName) {
+
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tabcontent");
+
+            for (i = 0; i < tabcontent.length; i++) {
+
+                tabcontent[i].style.display = "none";
+
+            }
+
+            tablinks = document.getElementsByTagName("a");
+
+            for (i = 0; i < tablinks.length; i++) {
+
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+
+            }
+
+            document.getElementById(tabName).style.display = "block";
+
+            evt.currentTarget.className += " active";
+
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+<body>
+
+    <div class="main hidden">
+
+        <div class="header">
+
+            <h1 class="titulo">Aplicación de Punto de Venta</h1>
+
+            <p id="hora"></p>
+
+            <p id="usuario"></p>
+
+        </div>
+
+
+
+        <nav>
+
+            <a href="#" onclick="openTab(event, 'Ventas')">Ventas</a>
+
+            <a href="#" onclick="openTab(event, 'Administracion')">Administración</a>
+
+            <a href="#" onclick="openTab(event, 'Informes')">Informes</a>
+
+
+
+        </nav>
+
+
+
+        <div id="Ventas" class="tabcontent" style="display:none;">
+
+
+
+            <div class="venta">
+
+                <h2>Ventas</h2>
+
+                <div class="venta">
+
+                    <h2>Información de la venta</h2>
+
+                    <label for="nombreProducto">Nombre del producto:</label>
+
+                    <input type="text" id="nombreProducto" placeholder="Nombre del producto">
+
+                    <label for="cantidad">Cantidad:</label>
+
+                    <input type="number" id="cantidad" placeholder="Cantidad">
+
+                    <label for="precio">Precio:</label>
+
+                    <input type="number" id="precio" placeholder="Precio">
+
+                    <label for="descuento">Descuento (%):</label>
+
+                    <input type="number" id="descuento" placeholder="Descuento">
+
+                    <label for="descuentoAplicado">Descuento aplicado:</label>
+
+                    <input type="number" id="descuentoAplicado" placeholder="Descuento aplicado" readonly>
+
+                    <label for="total">Total:</label>
+
+                    <input type="number" id="total" placeholder="Total" readonly>
+
+                    <button id="btnAnadirProducto">Añadir producto</button>
+
+                    <button id="btnConfirmarVenta">Confirmar venta</button>
+
+
+
+                </div>
+
+                <div class="modulo-productos">
+
+                    <h2>Productos seleccionados</h2>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Nombre</th>
+
+                                <th>Cantidad</th>
+
+                                <th>Precio</th>
+                              
+                               <th> Descuento </th>
+
+
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="productosEnVenta"></tbody>
+
+                        <tfoot id="tablaTotales"></tfoot>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+            
+                   
+
+               <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("descuento").addEventListener("input", function () {
+            var descuento = document.getElementById("descuento").value;
+        });
+
+        document.getElementById("btnAnadirProducto").addEventListener("click", function () {
+            var nombreProducto = document.getElementById("nombreProducto").value;
+            var cantidad = document.getElementById("cantidad").value;
+            var precio = document.getElementById("precio").value;
+            var descuento = document.getElementById("descuento").value;
+
+            if (nombreProducto && cantidad && precio && descuento) {
+                var productosEnVenta = document.getElementById("productosEnVenta");
+                var nuevoProducto = document.createElement("tr");
+                nuevoProducto.innerHTML = `
+                    <td>${nombreProducto}</td>
+                    <td>${cantidad} x</td>
+                    <td>$${precio}</td>
+                    <td>${descuento}%</td>
+                `;
+                productosEnVenta.appendChild(nuevoProducto);
+
+                // Limpiar campos
+                document.getElementById("nombreProducto").value = "";
+                document.getElementById("cantidad").value = "";
+                document.getElementById("precio").value = "";
+                document.getElementById("descuento").value = "";
+            } 
+        }); 
+
+        document.getElementById("btnConfirmarVenta").addEventListener("click", function () {
+            var productosEnVenta = document.getElementById("productosEnVenta");
+            var filas = productosEnVenta.querySelectorAll("tr");
+            var totalVenta = 0;
+
+            filas.forEach(function (fila) {
+                var nombre = fila.cells[0].textContent;
+                var cantidad = parseInt(fila.cells[1].textContent.split(" ")[0]);
+                var precio = parseFloat(fila.cells[2].textContent.slice(1));
+                var descuento = parseFloat(fila.cells[3].textContent.slice(0, -1));  // Descuento en porcentaje
+                totalVenta += cantidad * precio * (1 - descuento/100);
+            });
+
+           
+            
+        }); 
+    });
+</script>
+         
+                         
+          
+
+        
+
+        
+
+
+
+
+
+        <div id="Administracion" class="tabcontent" style="display:none;">
+
+            <div class="administracion">
+
+                <h2>Administración</h2>
+
+                <div class="administracion">
+
+                    <h2>Administración</h2>
+
+                    <h3>Nuevo artículo</h3>
+
+                    <label for="codigo">Código:</label>
+
+                    <input type="text" id="codigo" placeholder="Código">
+
+                    <label for="nombreArticulo">Nombre del artículo:</label>
+
+                    <input type="text" id="nombreArticulo" placeholder="Nombre del artículo">
+
+                    <label for="stock">Stock:</label>
+
+                    <input type="number" id="stock" placeholder="Stock">
+
+                    <label for="descripcion">Descripción:</label>
+
+                    <textarea id="descripcion" placeholder="Descripción"></textarea>
+
+                    <button id="agregarArticulo">Agregar artículo</button>
+
+                    <button type="button" id="eliminarProducto">Eliminar producto</button>
+
+                    <script>
+
+                    function eliminarProducto() {
+
+                        const codigo = document.getElementById("codigo").value;
+
+                        const productoIndex = productos.findIndex(
+
+                            (producto) => producto.nombre === codigo || producto.codigo === codigo
+
+                        );
+
+
+
+                        if (productoIndex !== -1) {
+
+                            productos.splice(productoIndex, 1);
+
+                            guardarProductos(); // Guarda los productos en localStorage
+
+                            actualizarInventario(); // Actualiza la tabla de inventario
+
+                            alert("Producto eliminado");
+
+                        } else {
+
+                            alert("Producto no encontrado");
+
+                        }
+
+                        document.getElementById("eliminarProducto").addEventListener("click", eliminarProducto);
+
+
+
+                    }
+
+                    document.getElementById("eliminarProducto").addEventListener("click", eliminarProducto);
+
+
+
+                    </script>
+
+                    <h3>Inventario</h3>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Código</th>
+
+                                <th>Nombre</th>
+
+                                <th>Stock</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="inventario">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div id="Informes" class="tabcontent">
+
+            <div class="informes">
+
+                <h2>Informes</h2>
+
+                <button id="generarInforme">Generar informe</button>
+
+                <h3>Productos más vendidos</h3>
+
+                <table class="informe-tabla">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Nombre del producto</th>
+
+                            <th>Cantidad vendida</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="productosMasVendidos">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <script>
+            document.getElementById("btnConfirmarVenta").addEventListener("click", function () {
+    var productosEnVenta = document.getElementById("productosEnVenta");
+    var filas = productosEnVenta.querySelectorAll("tr");
+    var totalVenta = 0;
+
+    filas.forEach(function (fila) {
+        var nombre = fila.cells[0].textContent;
+        var cantidad = parseInt(fila.cells[1].textContent.split(" ")[0]);
+        var precio = parseFloat(fila.cells[2].textContent.slice(1));
+        var descuento = parseFloat(fila.cells[3].textContent.slice(0, -1));  // Descuento en porcentaje
+        totalVenta += cantidad * precio * (1 - descuento/100);
+
+        // Reducir el stock del producto vendido
+        var productoVendido = productos.find(producto => producto.nombre === nombre);
+        if (productoVendido) {
+            productoVendido.stock -= cantidad;
+        }
+    });
+
+    if (totalVenta > 0) {
+        alert(`Gracias por su compra. El total es $${totalVenta.toFixed(2)}`);
+        productosEnVenta.innerHTML = "";
+        actualizarInventario(); // Actualiza la tabla de inventario
+    } else {
+        alert("No hay productos en la venta. Por favor, añade productos antes de confirmar la venta.");
+    }
+
+    
+}); 
+function actualizarInventario() {
+    var tbodyInventario = document.getElementById("inventario");
+    tbodyInventario.innerHTML = "";  // Limpiar la tabla
+
+    productos.forEach(function (producto) {
+        var fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${producto.codigo}</td>
+            <td>${producto.nombre}</td>
+            <td>${producto.stock}</td>
+        `;
+        tbodyInventario.appendChild(fila);
+    });
+}
+
+
+                           
+                    
+       
+        
+
+let ventas = [];
+let inventario = [
+    { id: 1, nombre: "Producto 1", precio: 50, unidadesVendidas: 0 },
+    { id: 2, nombre: "Producto 2", precio: 30, unidadesVendidas: 0 },
+    // Agregue más productos aquí
+];
+
+function confirmarVenta(productoId, unidades) {
+    const producto = inventario.find((p) => p.id === productoId);
+    if (producto) {
+        producto.unidadesVendidas += unidades;
+        ventas.push({ productoId, unidades });
+    }
+}
+
+// Ejemplo de uso de la función confirmarVenta
+// Esto debería ser llamado cada vez que se confirma una venta
+// En lugar de los valores de ejemplo, se deben usar los valores reales de la venta
+// confirmarVenta(1, 5);
+// confirmarVenta(2, 8);
+
+const btnInforme = document.getElementById("generarInforme");
+const productosMasVendidos = document.getElementById("productosMasVendidos");
+
+btnInforme.addEventListener("click", function () {
+    // Limpiamos la tabla de informes antes de generar un nuevo informe
+    productosMasVendidos.innerHTML = '';
+
+ // Ahora, para cada producto en el inventario, agregamos una fila a la tabla de informes
+    inventario.forEach(producto => {
+        let fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${producto.nombre}</td>
+            <td>${producto.unidadesVendidas}</td>
+        `;
+        productosMasVendidos.appendChild(fila);
+    });
+});
+
+
+
+
+
+
+
+
+        </script>
+
+
+
+
+
+        <script>
+
+                    // Array de productos
+
+                    let productos = [
+
+                        { codigo: "001", nombre: "Producto 1", stock: 100, unidadesVendidas: 0 },
+
+                        { codigo: "002", nombre: "Producto 2", stock: 200, unidadesVendidas: 0 },
+
+                        // Agrega más productos aquí
+
+                    ];
+
+
+
+
+
+                    let productosSeleccionados = [];
+
+                    let totalProductos = 0;
+
+                    let totalDescuentos = 0;
+
+                    let productosEnVentaArray = [];
+
+
+
+                    function actualizarStock(producto, cantidad) {
+
+                        const index = productos.findIndex((item) => item.nombre === producto);
+
+                        if (index !== -1) {
+
+                            productos[index].stock -= cantidad;
+
+                            if (productos[index].stock < 0) {
+
+                                productos[index].stock = 0;
+
+                            }
+
+                            guardarProductos();
+
+                            actualizarInventario();
+
+                        }
+
+                    }
+
+
+
+                    // Función para cargar productos desde localStorage
+
+                    function cargarProductos() {
+
+                        function cargarProductos() {
+
+                            const productosGuardados = localStorage.getItem("productos");
+
+                            if (productosGuardados) {
+
+                                productos = JSON.parse(productosGuardados);
+
+                                productos.forEach((producto) => {
+
+                                    if (!producto.unidadesVendidas) {
+
+                                        producto.unidadesVendidas = 0;
+
+                                    }
+
+                                });
+
+                                actualizarInventario();
+
+                            }
+
+                        }
+
+                    }
+
+
+
+                    function productoExiste(nombre) {
+
+                        return productos.some((producto) => producto.nombre === nombre);
+
+                    }
+
+
+
+                    // Función para disminuir la cantidad en stock de un producto
+
+                    function disminuirStock(nombre, cantidad) {
+
+                        const producto = productos.find((producto) => producto.nombre === nombre);
+
+                        if (producto && producto.stock >= cantidad) {
+
+                            producto.stock -= cantidad;
+
+                            guardarProductos();
+
+                            actualizarInventario();
+
+                            return true;
+
+                        }
+
+                        return false;
+
+                    }
+
+                    // Función para guardar productos en localStorage
+
+                    function guardarProductos() {
+
+                        localStorage.setItem("productos", JSON.stringify(productos));
+
+                    }
+
+
+
+                    // Función para agregar productos al inventario
+
+                    function agregarProducto() {
+
+                        const codigo = document.getElementById("codigo").value;
+
+                        const nombre = document.getElementById("nombreArticulo").value;
+
+                        const stock = document.getElementById("stock").value;
+
+
+
+                        const producto = {
+
+                            codigo: codigo,
+
+                            nombre: nombre,
+
+                            stock: parseInt(stock),
+
+                        };
+
+
+
+                        productos.push(producto);
+
+                        actualizarInventario();
+
+                        guardarProductos(); // Guarda los productos en localStorage
+
+                    }
+
+
+
+                    // Llama a la función cargarProductos al cargar la página
+
+                    cargarProductos();
+
+
+
+
+
+                    // Función para actualizar la tabla de inventario en la ventana de administración
+
+                    function actualizarInventario() {
+
+                        const inventario = document.getElementById("inventario");
+
+                        inventario.innerHTML = "";
+
+
+
+                        productos.forEach((producto) => {
+
+                            const fila = document.createElement("tr");
+
+                            fila.innerHTML = `
+
+      <td>${producto.codigo}</td>
+
+      <td>${producto.nombre}</td>
+
+      <td>${producto.stock}</td>
+
+    `;
+
+                            inventario.appendChild(fila);
+
+                        });
+
+                    }
+
+
+
+                    // Agregar evento al botón "Agregar artículo"
+
+                    document.getElementById("agregarArticulo").addEventListener("click", agregarProducto);
+
+
+
+                    // Función para calcular y mostrar el descuento aplicado y el total en la ventana de ventas
+
+                    function calcularDescuento() {
+
+                        const precio = parseFloat(document.getElementById("precio").value);
+
+                        const descuento = parseFloat(document.getElementById("descuento").value);
+
+
+
+                        const descuentoAplicado = (precio * descuento) / 100;
+
+                        const total = precio - descuentoAplicado;
+
+
+
+                        document.getElementById("descuentoAplicado").value = descuentoAplicado.toFixed(2);
+
+                        document.getElementById("total").value = total.toFixed(2);
+
+                    }
+
+
+
+                    // Agregar evento al campo "Descuento" en la ventana de ventas
+
+                    document.getElementById("descuento").addEventListener("input", calcularDescuento);
+
+                    document.getElementById("nombreProducto").addEventListener("input", function () {
+
+                        const nombreProducto = document.getElementById("nombreProducto").value;
+
+                        const productoEncontrado = productos.find((producto) => producto.nombre === nombreProducto);
+
+
+
+                        if (productoEncontrado) {
+
+                            document.getElementById("codigo").value = productoEncontrado.codigo;
+
+                        } else {
+
+                            alert("Producto no encontrado");
+
+                        }
+
+                    });
+
+
+
+
+
+                    function confirmarVenta() {
+
+                        let resumen = "Productos comprados:\n\n";
+
+
+
+                        productosSeleccionados.forEach(producto => {
+
+                            resumen += `Nombre: ${producto.nombre}\nCantidad: ${producto.cantidad}\nPrecio: $${producto.precio}\n\n`;
+
+                        });
+
+
+
+                        resumen += `Total: $${totalProductos}\nPromedio descuentos: $${(totalDescuentos / productosSeleccionados.length).toFixed(2)}`;
+
+
+
+                        alert(resumen);
+
+                    }
+
+
+
+                    //TABLA
+
+
+
+
+
+
+
+
+
+                    // Resto del código
+
+
+
+                    const nombreProducto = document.getElementById("nombreProducto");
+
+                    const cantidad = document.getElementById("cantidad");
+
+                    const precio = document.getElementById("precio");
+
+                    const descuento = document.getElementById("descuento");
+
+                    const descuentoAplicado = document.getElementById("descuentoAplicado");
+
+                    const total = document.getElementById("total");
+
+                    const confirmarProducto = document.createElement("button");
+
+                    const limpiar = document.getElementById("limpiar");
+
+                    const descuentoTotal = document.getElementById("descuentoTotal");
+
+                    const totalVenta = document.getElementById("totalVenta");
+
+                    const listaProductos = [];
+
+
+
+
+
+
+
+                    function limpiarCampos() {
+
+                        nombreProducto.value = "";
+
+                        cantidad.value = "";
+
+                        precio.value = "";
+
+                        descuento.value = "";
+
+                        descuentoAplicado.value = "";
+
+                        total.value = "";
+
+                    }
+
+                    function mostrarTicket() {
+
+    const ticket = document.createElement("div");
+
+    ticket.classList.add("ticket");
+
+    const tabla = document.createElement("table");
+
+    tabla.innerHTML = `
+
+        <thead>
+
+            <tr>
+
+            <th>Nombre del producto</th>
+
+            <th>Cantidad</th>
+
+            <th>Precio</th>
+
+            <th>Descuento</th>
+
+            <th>Total</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    `;
+
+    listaProductos.forEach((producto) => {
+
+        const fila = document.createElement("tr");
+
+        fila.innerHTML = `
+
+        <td>${producto.nombre}</td>
+
+        <td>${producto.cantidad}</td>
+
+        <td>${producto.precio.toFixed(2)}</td>
+
+        <td>${producto.descuento.toFixed(2)}</td>
+
+        <td>${producto.total.toFixed(2)}</td>  // Mostrar total con descuento
+
+        `;
+
+        tabla.querySelector("tbody").appendChild(fila);
+
+    });
+
+    ticket.appendChild(tabla);
+
+    document.body.appendChild(ticket);
+
+}
+
+
+
+                    descuento.addEventListener("input", function () {
+
+                        const valorDescuento = Number(descuento.value) / 100;
+
+                        const valorTotal = Number(precio.value) * Number(cantidad.value);
+
+                        descuentoAplicado.value = (valorTotal * valorDescuento).toFixed(2);
+
+                        total.value = (valorTotal - Number(descuentoAplicado.value)).toFixed(2);
+
+                    });
+
+
+
+
+
+                    
+
+
+
+
+
+                    
+
+
+
+
+
+
+
+                    // Agregar evento al botón "Confirmar producto"
+
+
+
+
+
+
+
+                    // Agregar evento al botón "Limpiar"
+
+                    limpiar.addEventListener("click", limpiarCampos);
+
+
+
+                    // Función para mostrar y ocultar las ventanas (tabcontent)
+
+                    function openTab(evt, tabName) {
+
+                        var i, tabcontent, tablinks;
+
+                        tabcontent = document.getElementsByClassName("tabcontent");
+
+                        for (i = 0; i < tabcontent.length; i++) {
+
+                            tabcontent[i].style.display = "none";
+
+                        }
+
+                        tablinks = document.getElementsByClassName("tablinks");
+
+                        for (i = 0; i < tablinks.length; i++) {
+
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+
+                        }
+
+                        document.getElementById(tabName).style.display = "block";
+
+                        evt.currentTarget.className += " active";
+
+                    }
+
+
+
+                    // Obtener el elemento con id "defaultOpen" y hacer clic en él
+
+                    document.getElementById("defaultOpen").click();
+
+                    // Función para actualizar la lista de productos en la ventana de ventas
+
+                    function actualizarProductoEnVenta() {
+
+                        const productosEnVenta = document.getElementById("productosEnVenta");
+
+                        productosEnVenta.innerHTML = "";
+
+
+
+                        productosEnVentaArray.forEach((producto) => {
+
+                            const fila = document.createElement("tr");
+
+                            fila.innerHTML = `
+
+            <td>${producto.nombre}</td>
+
+            <td>${producto.cantidad}</td>
+
+            <td>${producto.precio}</td>
+
+        `;
+
+                            productosEnVenta.appendChild(fila);
+
+                        });
+
+                    }
+
+
+
+
+
+                    function buscarProducto() {
+
+                        const codigo = document.getElementById("codigo").value;
+
+                        const productoEncontrado = productos.find((producto) => producto.codigo === codigo);
+
+
+
+                        if (productoEncontrado) {
+
+                            // Aquí va el código para agregar el producto a la venta
+
+                            // Por ejemplo, puedes mostrar el nombre del producto en el campo "nombreProducto"
+
+                            document.getElementById("nombreProducto").value = productoEncontrado.nombre;
+
+                        } else {
+
+                            alert("Producto no encontrado");
+
+                            document.getElementById("nombreProducto").value = ""; // Línea agregada para vaciar la celda
+
+
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+                    const productosEnVenta = document.getElementById("productosEnVenta");
+
+                    function getVentasFiltradas(inicio, fin) {
+
+                        return ventas.filter((venta) => venta.fecha >= inicio && venta.fecha <= fin);
+
+                    }
+
+
+
+                    function contarProductos(ventas) {
+
+                        const conteo = {};
+
+                        ventas.forEach((venta) => {
+
+                            if (conteo[venta.producto]) {
+
+                                conteo[venta.producto] += venta.cantidad;
+
+                            } else {
+
+                                conteo[venta.producto] = venta.cantidad;
+
+                            }
+
+                        });
+
+                        return conteo;
+
+                    }
+
+                    function ordenarPorVentas(conteo, orden) {
+
+                        const productosOrdenados = Object.entries(conteo);
+
+                        productosOrdenados.sort((a, b) => (orden === 'asc' ? a[1] - b[1] : b[1] - a[1]));
+
+                        return productosOrdenados;
+
+                    }
+
+
+
+                    function productoMasVendido(productos) {
+
+                        let maxVentas = 0;
+
+                        let productoMaxVentas = null;
+
+
+
+                        productos.forEach(producto => {
+
+                            if (producto.unidadesVendidas > maxVentas) {
+
+                                maxVentas = producto.unidadesVendidas;
+
+                                productoMaxVentas = producto;
+
+                            }
+
+                        });
+
+
+
+                        return productoMaxVentas;
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    function obtenerInventario() {
+
+                        // Esta función debe devolver el inventario actual (puede reemplazarla con la función que esté utilizando en su aplicación)
+
+                        return [
+
+                            { nombre: "Producto A", stock: 10 },
+
+                            { nombre: "Producto B", stock: 15 },
+
+                            { nombre: "Producto C", stock: 20 },
+
+                        ];
+
+                    }
+
+                    function agregarProductoVenta() {
+
+                        const nombreProducto = document.getElementById("nombreProducto").value;
+
+                        const cantidad = parseInt(document.getElementById("cantidad").value);
+
+                        const precio = parseFloat(document.getElementById("precio").value);
+
+
+
+                        const productoEncontrado = productos.find((producto) => producto.nombre === nombreProducto);
+
+
+
+                        if (productoEncontrado && cantidad <= productoEncontrado.stock) {
+
+                            const productoEnVenta = {
+
+                                nombre: nombreProducto,
+
+                                cantidad: cantidad,
+
+                                precio: precio,
+
+                            };
+
+
+
+                            productosEnVentaArray.push(productoEnVenta);
+
+                            actualizarProductosEnVenta();
+
+
+
+                            // Resta la cantidad comprada al stock del producto
+
+                            productoEncontrado.stock -= cantidad;
+
+
+
+                            // Incrementa la cantidad total vendida del producto
+
+                            if (productoEncontrado.totalVendido) {
+
+                                productoEncontrado.totalVendido += cantidad;
+
+                            } else {
+
+                                productoEncontrado.totalVendido = cantidad;
+
+                            }
+
+                        } else if (productoEncontrado && cantidad > productoEncontrado.stock) {
+
+                            alert("Producto agotado");
+
+                        } else {
+
+                            alert("Producto no encontrado");
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+                    function actualizarProductosEnVenta() {
+
+                        const productosEnVenta = document.getElementById("productosEnVenta");
+
+                        productosEnVenta.innerHTML = "";
+
+
+
+                        productosEnVentaArray.forEach((producto) => {
+
+                            const fila = document.createElement("tr");
+
+                            fila.innerHTML = `
+
+                <td>${producto.nombre}</td>
+
+                <td>${producto.cantidad}</td>
+
+                <td>${producto.precio.toFixed(2)}</td>
+
+            `;
+
+                            productosEnVenta.appendChild(fila);
+
+                        });
+
+                    }
+
+
+
+    // Agrega el evento al botón "Agregar producto"
+
+
+
+
+
+        </script>
+
+
+
+</body>
+
+
+
+</html>
